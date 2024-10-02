@@ -14,6 +14,9 @@
           
           {% else %}
           <li class="nav-item"></li>
+            <a class="nav-link" href="{% url 'register' %}"> Registrarse</a>
+          </li>
+          <li class="nav-item"></li>
             <a class="nav-link" href="{% url 'home' %}">Iniciar sesión</a>
           </li>
           {% endif %}
