@@ -76,9 +76,23 @@ def add_record(request):
 		if request.method == "POST":
 			if form.is_valid():
 				add_record = form.save()
-				messages.success(request, "Record Added...")
+				messages.success(request, "Registro añadido")
 				return redirect('home')
 		return render(request, 'add_record.html', {'form':form})
 	else:
-		messages.success(request, "You Must Be Logged In...")
+		messages.success(request, "Debes iniciar sesión primero")
+		return redirect('home')
+
+
+def update_record(request, pk):
+	if request.user.is_authenticated:
+		current_record = Record.objects.get(id=pk)
+		form = AddRecordForm(request.POST or None, instance=current_record)
+		if form.is_valid():
+			form.save()
+			messages.success(request, "El registro ha sido actualizado!")
+			return redirect('home')
+		return render(request, 'update_record.html', {'form':form})
+	else:
+		messages.success(request, "Debes iniciar sesión primero")
 		return redirect('home')
